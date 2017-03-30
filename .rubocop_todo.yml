@@ -6,6 +6,8 @@ Security/MarshalLoad:
 
 Metrics/BlockLength:
   Exclude:
+    - 'spec/**/*'
+    - '**/*.gemspec'
     - 'app/controllers/concerns/hyrax/collections_controller_behavior.rb'
     - 'app/models/concerns/hyrax/basic_metadata.rb'
     - 'app/models/concerns/hyrax/admin_set_behavior.rb'
@@ -15,7 +17,6 @@ Metrics/BlockLength:
     - 'lib/generators/hyrax/templates/catalog_controller.rb'
     - 'lib/generators/hyrax/templates/config/initializers/simple_form_bootstrap.rb'
     - 'lib/hyrax/rails/routes.rb'
-    - 'spec/**/*'
 
 Metrics/ClassLength:
   Exclude:
@@ -60,6 +61,10 @@ Metrics/MethodLength:
     - 'lib/hyrax/rails/routes.rb'
     - 'spec/support/**/*'
 
+Style/ExtraSpacing:
+  Exclude:
+    - 'tasks/hyrax-dev.rake'
+
 Style/LineEndConcatenation:
   Exclude:
     - 'spec/test_app_templates/lib/generators/**/*'
@@ -68,6 +73,15 @@ Style/LineEndConcatenation:
 Style/PredicateName:
   Exclude:
     - 'app/helpers/hyrax/collections_helper.rb'
+
+Style/SpaceInsideBlockBraces:
+  Exclude:
+    - 'app/views/hyrax/base/show.json.jbuilder'
+    - 'tasks/hyrax-dev.rake'
+
+Style/TrailingWhitespace:
+  Exclude:
+    - 'spec/test_app_templates/**/*'
 
 Rails/Output:
   Exclude:

@@ -64,6 +64,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'retriable', '>= 2.9', '< 4.0'
   spec.add_dependency 'active-fedora', '>= 11.1.3'
 
+  spec.add_development_dependency 'bixby',       '~> 0.2.0'
   spec.add_development_dependency 'engine_cart', '~> 1.0'
   spec.add_development_dependency 'mida', '~> 0.3'
   spec.add_development_dependency 'database_cleaner', '~> 1.3'
@@ -77,8 +78,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "factory_girl_rails", '~> 4.4'
   spec.add_development_dependency "equivalent-xml", '~> 0.5'
   spec.add_development_dependency "jasmine", '~> 2.3'
-  spec.add_development_dependency 'rubocop', '~> 0.47.0'
-  spec.add_development_dependency 'rubocop-rspec', '~> 1.10.0'
   spec.add_development_dependency 'shoulda-matchers', '~> 3.1'
   spec.add_development_dependency 'rails-controller-testing', '~> 0'
   spec.add_development_dependency 'webmock'

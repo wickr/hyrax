@@ -1,41 +1,12 @@
-inherit_from: .rubocop_todo.yml
+inherit_gem:
+  bixby: bixby_default.yml
 
-AllCops:
-  TargetRubyVersion: 2.1
-  DisplayCopNames: true
-  Include:
-    - '**/Rakefile'
-    - '**/config.ru'
-  Exclude:
-    - 'db/**/*'
-    - 'script/**/*'
-    - 'spec/test_app_templates/**/*'
-    - 'vendor/**/*'
-    - 'lib/hyrax/specs/**/*'
+inherit_from: 
+  - .rubocop_todo.yml
 
 Lint/ImplicitStringConcatenation:
   Exclude:
     - 'lib/generators/hyrax/**/*'
-
-Metrics/LineLength:
-  Max: 200
-
-Metrics/AbcSize:
-  Max: 28
-
-Metrics/MethodLength:
-  Max: 14
-
-Style/IndentationConsistency:
-  EnforcedStyle: rails
-
-Style/CollectionMethods:
-  PreferredMethods:
-    collect: 'map'
-    collect!: 'map!'
-    inject: 'reduce'
-    detect: 'find'
-    find_all: 'select'
 
 Style/MethodMissing:
   Exclude:
@@ -45,30 +16,9 @@ Style/NumericPredicate:
   Exclude:
     - 'app/controllers/concerns/hyrax/file_sets_controller_behavior.rb'
 
-Style/WordArray:
-  Enabled: false
-
-Style/RegexpLiteral:
-  Enabled: false
-
-Style/StringLiterals:
-  Enabled: false
-
-Style/ClassAndModuleChildren:
-  Enabled: false
-
-Style/Documentation:
-  Enabled: false
-
-Style/SingleLineBlockParams:
-  Enabled: false
-
 Style/ZeroLengthPredicate:
   Exclude:
     - 'app/controllers/concerns/hyrax/file_sets_controller_behavior.rb'
-
-Rails:
-  Enabled: true
 
 Rails/OutputSafety:
   Exclude:
@@ -82,9 +32,6 @@ Rails/OutputSafety:
     - 'app/helpers/hyrax/citations_behaviors/formatters/mla_formatter.rb'
     - 'app/presenters/hyrax/presents_attributes.rb'
     - 'app/renderers/hyrax/renderers/attribute_renderer.rb'
-
-Rails/DynamicFindBy:
-  Enabled: false
 
 Rails/FilePath:
   Exclude:
@@ -101,17 +48,14 @@ RSpec/DescribeClass:
     - 'spec/tasks/rake_spec.rb'
     - 'spec/views/**/*'
 
-# By default RSpec/MessageSpies has the following:
-#   Prefer have_received for setting message expectations. Setup form as a spy using allow or instance_spy.
-# The default assumes EnforcedStyle is 'have_received'. Most of our specs are 'receive'
-RSpec/MessageSpies:
+RSpec/ExpectActual:
   Enabled: false
 
 RSpec/InstanceVariable:
   Exclude:
     - 'spec/services/hyrax/derivative_service_spec.rb'
 
-RSpec/ExpectActual:
+RSpec/LeadingSubject:
   Enabled: false
 
 RSpec/LetSetup:
@@ -120,11 +64,14 @@ RSpec/LetSetup:
 RSpec/MessageExpectation:
   Enabled: false
 
+# By default RSpec/MessageSpies has the following:
+#   Prefer have_received for setting message expectations. Setup form as a spy using allow or instance_spy.
+# The default assumes EnforcedStyle is 'have_received'. Most of our specs are 'receive'
+RSpec/MessageSpies:
+  Enabled: false
+
 RSpec/MultipleExpectations:
   Enabled: false
 
 RSpec/NestedGroups:
-  Enabled: false
-
-RSpec/LeadingSubject:
   Enabled: false

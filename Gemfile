@@ -4,10 +4,10 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :test do
-  gem "simplecov", require: false
   gem 'coveralls', require: false
-  gem 'pry' unless ENV['CI']
+  gem 'pry'        unless ENV['CI']
   gem 'pry-byebug' unless ENV['CI']
+  gem "simplecov", require: false
 end
 
 # BEGIN ENGINE_CART BLOCK
@@ -30,17 +30,17 @@ else
       gem 'rails', github: 'rails/rails'
       ENV['ENGINE_CART_RAILS_OPTIONS'] = '--edge --skip-turbolinks'
     else
-      gem 'rails', ENV['RAILS_VERSION']
+      gem 'rails', ENV['RAILS_VERSION'] # rubocop:disable Bundler/DuplicatedGem
     end
   end
 
   case ENV['RAILS_VERSION']
   when /^4.2/
-    gem 'responders', '~> 2.0'
-    gem 'sass-rails', '>= 5.0'
     gem 'coffee-rails', '~> 4.2.0'
+    gem 'responders',   '~> 2.0'
+    gem 'sass-rails',   '>= 5.0'
   when /^4.[01]/
-    gem 'sass-rails', '< 5.0'
+    gem 'sass-rails', '< 5.0' # rubocop:disable Bundler/DuplicatedGem
   end
 end
 # END ENGINE_CART BLOCK

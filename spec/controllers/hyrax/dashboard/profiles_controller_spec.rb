@@ -32,7 +32,7 @@ RSpec.describe Hyrax::Dashboard::ProfilesController do
       let(:another_user) { create(:user) }
 
       context 'with default abilities' do
-        it "it is unauthorized" do
+        it 'is unauthorized' do
           expect(controller.current_ability).to receive(:can?).with(:edit, another_user).and_return(false)
           get :edit, params: { id: another_user.to_param }
           expect(response).to render_template(:unauthorized)
