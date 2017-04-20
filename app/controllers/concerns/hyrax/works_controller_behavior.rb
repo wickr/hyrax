@@ -122,6 +122,7 @@ module Hyrax
       @form = Forms::FileManagerForm.new(curation_concern, current_ability)
     end
 
+    # @TODO ability_refactor: remove admin? and add explicit authorization. what do we need to authorize here?
     def inspect_work
       raise Hydra::AccessDenied unless current_ability.admin?
       presenter
