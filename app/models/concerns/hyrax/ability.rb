@@ -10,25 +10,26 @@ module Hyrax
     def hydra_default_permissions
       super
       admin_set_abilities
-      cannot_index_abilities
       citation_abilities
       editor_abilities
       operation_abilities
       trophy_abilities
       user_abilities
 
-      if admin?
-        admin_permissions
-        feature_abilities
-        featured_work_abilities
-        stats_abilities
-      end
-
       if registered_user?
         add_to_collection
         curation_concerns_permissions
         proxy_deposit_abilities
         uploaded_file_abilities
+      end
+
+      if admin?
+        admin_permissions
+        feature_abilities
+        featured_work_abilities
+        stats_abilities
+      else
+        cannot_index_abilities
       end
     end
 
