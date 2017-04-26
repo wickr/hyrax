@@ -1,15 +1,6 @@
 module Hyrax
   module ApplicationAbility
-    class EditorApplicationAbility
-      extend Forwardable
-      attr_reader :ability
-
-      def initialize(ability:)
-        @ability = ability
-      end
-
-      def_delegators :@ability, :can
-
+    class EditorApplicationAbility < BaseApplicationAbility
       def apply
         can :read, ContentBlock
       end

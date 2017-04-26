@@ -1,15 +1,6 @@
 module Hyrax
   module ApplicationAbility
-    class AdminApplicationAbility
-      extend Forwardable
-      attr_reader :ability
-
-      def initialize(ability:)
-        @ability = ability
-      end
-
-      def_delegators :@ability, :admin?, :can, :alias_action, :admin_dashboard
-
+    class AdminApplicationAbility < BaseApplicationAbility
       def apply
         can :read, :admin_dashboard
         alias_action :edit, to: :update

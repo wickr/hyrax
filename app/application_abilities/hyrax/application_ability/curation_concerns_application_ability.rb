@@ -1,15 +1,6 @@
 module Hyrax
   module ApplicationAbility
-    class CurationConcernsApplicationAbility
-      extend Forwardable
-      attr_reader :ability
-
-      def initialize(ability:)
-        @ability = ability
-      end
-
-      def_delegators :@ability, :can, :alias_action
-
+    class CurationConcernsApplicationAbility < BaseApplicationAbility
       def apply
         can :create, Hyrax::ClassifyConcern
 

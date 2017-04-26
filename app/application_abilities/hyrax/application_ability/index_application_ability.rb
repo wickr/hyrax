@@ -1,15 +1,6 @@
 module Hyrax
   module ApplicationAbility
-    class IndexApplicationAbility
-      extend Forwardable
-      attr_reader :ability
-
-      def initialize(ability:)
-        @ability = ability
-      end
-
-      def_delegators :@ability, :cannot
-
+    class IndexApplicationAbility < BaseApplicationAbility
       def apply
         cannot :index, Hydra::AccessControls::Embargo
         cannot :index, Hydra::AccessControls::Lease

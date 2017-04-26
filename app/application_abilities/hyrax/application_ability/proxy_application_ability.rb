@@ -1,15 +1,6 @@
 module Hyrax
   module ApplicationAbility
-    class ProxyApplicationAbility
-      extend Forwardable
-      attr_reader :ability
-
-      def initialize(ability:)
-        @ability = ability
-      end
-
-      def_delegators :@ability, :can, :current_user
-
+    class ProxyApplicationAbility < BaseApplicationAbility
       def apply
         if Flipflop.transfer_works?
           can :transfer, String do |id|

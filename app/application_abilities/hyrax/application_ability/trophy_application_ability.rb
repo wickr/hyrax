@@ -1,15 +1,6 @@
 module Hyrax
   module ApplicationAbility
-    class TrophyApplicationAbility
-      extend Forwardable
-      attr_reader :ability
-
-      def initialize(ability:)
-        @ability = ability
-      end
-
-      def_delegators :@ability, :can, :current_user
-
+    class TrophyApplicationAbility < BaseApplicationAbility
       # We check based on the depositor, because the depositor may not have edit
       # access to the work if it went through a mediated deposit workflow that
       # removes edit access for the depositor.

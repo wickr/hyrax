@@ -1,15 +1,6 @@
 module Hyrax
   module ApplicationAbility
-    class UserApplicationAbility
-      extend Forwardable
-      attr_reader :ability
-
-      def initialize(ability:)
-        @ability = ability
-      end
-
-      def_delegators :@ability, :can, :current_user
-
+    class UserApplicationAbility < BaseApplicationAbility
       def apply
         can [:edit, :update, :toggle_trophy], ::User, id: current_user.id
         can :show, ::User

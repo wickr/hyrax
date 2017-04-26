@@ -1,15 +1,6 @@
 module Hyrax
   module ApplicationAbility
-    class AdminSetApplicationAbility
-      extend Forwardable
-      attr_reader :ability
-
-      def initialize(ability:)
-        @ability = ability
-      end
-
-      def_delegators :@ability, :can
-
+    class AdminSetApplicationAbility < BaseApplicationAbility
       def apply
         can [:create, :edit, :update, :destroy], Hyrax::PermissionTemplate do |template|
           test_edit(template.admin_set_id)
