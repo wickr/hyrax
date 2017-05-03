@@ -1,11 +1,6 @@
 module Hyrax
   module Ability
     extend ActiveSupport::Concern
-
-    # included do
-    #   self.ability_logic += []
-    # end
-
     # will eventually be replaced by a user-based lookup of functional roles
     def hydra_default_permissions
       super
