@@ -11,7 +11,7 @@ module Hyrax
         users.count
       end
 
-      # @return [Array] an array of user roles
+      # @return [Array] an array of the defined user functional roles
       def user_roles(user)
         user.groups
       end
