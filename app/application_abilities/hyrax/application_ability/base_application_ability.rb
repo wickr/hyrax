@@ -7,10 +7,11 @@ module Hyrax # This should perhaps be pushed into the Hydra namespace.
       def initialize(ability:)
         @ability = ability
       end
-      def_delegators :@ability, :can, :cannot, :alias_action, :admin_dashboard, :current_user
+      def_delegators :@ability, :can, :cannot, :alias_action, :admin_dashboard, :current_user, :test_edit
 
       def apply
         raise NotImplementedError, "Subclasses must implement #apply"
       end
     end
   end
+end

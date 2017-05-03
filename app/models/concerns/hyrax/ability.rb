@@ -9,28 +9,7 @@ module Hyrax
     # will eventually be replaced by a user-based lookup of functional roles
     def hydra_default_permissions
       super
-      admin_set_abilities
-      citation_abilities
-      editor_abilities
-      operation_abilities
-      trophy_abilities
-      user_abilities
-
-      if registered_user?
-        add_to_collection
-        curation_concerns_permissions
-        proxy_deposit_abilities
-        uploaded_file_abilities
-      end
-
-      if admin?
-        admin_permissions
-        feature_abilities
-        featured_work_abilities
-        stats_abilities
-      else
-        cannot_index_abilities
-      end
+      apply_functional_abilities
     end
 
     # @TODO ability_refactor:
@@ -38,8 +17,21 @@ module Hyrax
     # a given user has within the application, but it also defines various
     # methods which are used to test authority, sometimes as part of the granting
     # of authority, but also in other places throughout the app.
-    # Need to brainstorm how to best separate these ability helpers from the
-    # definition of application abilities.
+    # Need to brainstorm if we should separate these necessary ability helpers
+    # from the definition of application abilities.
+
+    # @TODO ability_refactor: use of admin? and registered? should be deprecated
+    # in favor of authorizing specific application abilities
+    # Override this method in your ability model if you use a different group
+    # or other logic to designate an administrator.
+    def admin?
+      user_groups.include? 'admin'
+    end
+
+    def registered_user?
+      return false if current_user.guest?
+      user_groups.include? 'registered'
+    end
 
     # Returns true if can create at least one type of work and they can deposit
     # into at least one AdminSet
@@ -47,14 +39,6 @@ module Hyrax
       Hyrax.config.curation_concerns.any? do |curation_concern_type|
         can?(:create, curation_concern_type)
       end && admin_set_ids_for_deposit.any?
-    end
-
-    # @TODO ability_refactor: use of admin? should be deprecated in favor of
-    # authorizing specific application abilities
-    # Override this method in your ability model if you use a different group
-    # or other logic to designate an administrator.
-    def admin?
-      user_groups.include? 'admin'
     end
 
     # @return [Array<String>] a list of admin set ids for admin sets the user
@@ -74,90 +58,8 @@ module Hyrax
 
     private
 
-      # Left in until Hyku ceases to access this
-      # @TODO ability_refactor: Is there any reason for this long-term?
-      def everyone_can_create_curation_concerns
-        curation_concerns_permissions
-      end
-
-      # batch upload abilities
-      def uploaded_file_abilities
-        Hyrax::ApplicationAbility::UploadedFileApplicationAbility.new(ability: self).apply
-      end
-
-      # ProxyDepositRequest abilities
-      def proxy_deposit_abilities
-        Hyrax::ApplicationAbility::ProxyApplicationAbility.new(ability: self).apply
-      end
-
-      # Hyrax::User abilities
-      def user_abilities
-        Hyrax::ApplicationAbility::UserApplicationAbility.new(ability: self).apply
-      end
-
-      # ability to work with featured works
-      def featured_work_abilities
-        Hyrax::ApplicationAbility::FeaturedWorkApplicationAbility.new(ability: self).apply
-      end
-
-      # editor abilities related to content blocks
-      def editor_abilities
-        Hyrax::ApplicationAbility::EditorApplicationAbility.new(ability: self).apply
-      end
-
-      # ability to read the stats
-      def stats_abilities
-        Hyrax::ApplicationAbility::StatsApplicationAbility.new(ability: self).apply
-      end
-
-      # abilities related to citations
-      def citation_abilities
-        Hyrax::ApplicationAbility::CitationApplicationAbility.new(ability: self).apply
-      end
-
-      # Gives the ability to see the Settings menu option and manage the settings
-      def feature_abilities
-        Hyrax::ApplicationAbility::FeatureApplicationAbility.new(ability: self).apply
-      end
-
-      # Ability to manage admin sets and/or permission templates
-      def admin_set_abilities
-        Hyrax::ApplicationAbility::AdminSetApplicationAbility.new(ability: self).apply
-      end
-
-      # Hyrax::Operation abilities
-      def operation_abilities
-        Hyrax::ApplicationAbility::OperationApplicationAbility.new(ability: self).apply
-      end
-
-      # ability to create & destroy trophies
-      def trophy_abilities
-        Hyrax::ApplicationAbility::TrophyApplicationAbility.new(ability: self).apply
-      end
-
-      # ability to create curation concerns
-      def curation_concerns_permissions
-        Hyrax::ApplicationAbility::CurationConcernsApplicationAbility.new(ability: self).apply
-      end
-
-      # disallow indexing on embargo and lease
-      def cannot_index_abilities
-        Hyrax::ApplicationAbility::IndexApplicationAbility.new(ability: self).apply
-      end
-
-      # Admin-only permissions
-      def admin_permissions
-        Hyrax::ApplicationAbility::AdminApplicationAbility.new(ability: self).apply
-      end
-
-      # ability to collect everything
-      def add_to_collection
-        Hyrax::ApplicationAbility::AddToCollectionApplicationAbility.new(ability: self).apply
-      end
-
-      def registered_user?
-        return false if current_user.guest?
-        user_groups.include? 'registered'
+      def apply_functional_abilities
+        Hyrax::ApplicationAbility.append_abilities_to!(ability: self)
       end
   end
 end

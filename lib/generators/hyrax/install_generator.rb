@@ -100,7 +100,6 @@ module Hyrax
     def inject_ability
       inject_into_file 'app/models/ability.rb', after: /Hydra::Ability\s*\n/ do
         "  include Hyrax::Ability\n"\
-        "  self.ability_logic += [:everyone_can_create_curation_concerns]\n\n"
       end
     end
 
