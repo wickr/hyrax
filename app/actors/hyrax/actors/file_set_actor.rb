@@ -144,7 +144,7 @@ module Hyrax
         # @note This is only useful for labeling the file_set, because of the recourse to import_url
         def label_for(file)
           if file.is_a?(Hyrax::UploadedFile)
-            file.uploader.filename
+            file.uploader.filename.present? ? file.uploader.filename : File.basename(Addressable::URI.parse(file.file_url).path)
           elsif file.respond_to?(:original_filename) # e.g. ActionDispatch::Http::UploadedFile, CarrierWave::SanitizedFile
             file.original_filename
           elsif file.respond_to?(:original_name) # e.g. Hydra::Derivatives::IoDecorator
