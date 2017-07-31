@@ -2,8 +2,8 @@ module Hyrax::Works
   module Featured
     extend ActiveSupport::Concern
     included do
-      before_destroy :cleanup_featured_works
-      after_save :check_featureability
+    #  before_destroy :cleanup_featured_works
+    #  after_save :check_featureability
     end
 
     def cleanup_featured_works
