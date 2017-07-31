@@ -22,7 +22,18 @@ class JobIoWrapper < ApplicationRecord
   validates :file_set_id, presence: true
 
   after_initialize :static_defaults
-  delegate :read, :size, to: :file
+  delegate :size, to: :file
+
+  def read(*args)
+    # IO-like and CarrierWave uploader-like objects handle #read differently
+    if file.method(:read).arity.zero?
+      # This is a CW uploader; ignore the args
+      file.read
+    else
+      # This is an IO-like object; pass on the args
+      file.read(*args)
+    end
+  end
 
   def original_name
     super || extracted_original_name
