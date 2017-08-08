@@ -71,6 +71,26 @@ module Hyrax
         model.thumbnail.title.first
       end
 
+      def relationships?
+        false
+      end
+
+      def sharing?
+        false
+      end
+
+      def visibility?
+        false
+      end
+
+      def discovery?
+        false
+      end
+
+      def workflow?
+        false
+      end
+
       private
 
         def all_files_with_access

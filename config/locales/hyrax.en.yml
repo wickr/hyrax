@@ -402,9 +402,13 @@ en:
         header: "Edit Collection: %{title}"
       form:
         tabs:
+          branding: "Branding"
           description: "Description"
-          sharing:     "Sharing"
-          discovery:   "Discovery"
+          discovery: "Discovery"
+          relationships: "Relationships"
+          sharing: "Sharing"
+          visibility: "Visibility"
+          workflow: "Workflow"
       form_discovery:
           open:
             label:         "Open Access"
