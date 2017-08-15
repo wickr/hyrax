@@ -1,7 +1,7 @@
-<% provide :page_title, construct_page_title( t('.header') ) %>
+<% provide :page_title, construct_page_title( t('.header', collection_type_title: @form.collection_type.title) ) %>
 
 <% provide :page_header do %>
-  <h1><span class="fa fa-edit"></span> <%= t('.header') %></h1>
+  <h1><span class="fa fa-edit"></span> <%= t('.header', collection_type_title: @form.collection_type.title) %></h1>
 <% end %>
 
 <div class="row">

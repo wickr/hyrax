@@ -399,7 +399,7 @@ en:
         update: "Update Collection"
     collections:
       edit:
-        header: "Edit Collection: %{title}"
+        header: "Edit %{collection_type_title}: %{title}"
       form:
         tabs:
           branding: "Branding"
@@ -422,7 +422,7 @@ en:
           para1: "These settings determine who is able to discover and view this collection's landing page; they do not affect the visibility of items in the collection."
           para2: "If you chose not to make this collection open access, you can still share the collection with specific users and groups using the Sharing tab."
       new:
-        header: Create New Collection
+        header: "Create New %{collection_type_title}"
       search_form:
         button_label: Go
         label: "Search Collection %{title}"

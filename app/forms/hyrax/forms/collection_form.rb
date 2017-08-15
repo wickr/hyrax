@@ -17,6 +17,7 @@ module Hyrax
 
       delegate :human_readable_type, :member_ids, to: :model
       delegate :blacklight_config, to: Hyrax::CollectionsController
+      delegate :collection_type, to: :model
 
       self.terms = [:resource_type, :title, :creator, :contributor, :description,
                     :keyword, :license, :publisher, :date_created, :subject, :language,
