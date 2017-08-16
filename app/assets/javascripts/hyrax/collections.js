@@ -9,4 +9,26 @@ Blacklight.onLoad(function () {
       form[0].action = form[0].action.replace(string_to_replace, collection_id);
       form.append('<input type="hidden" value="add" name="collection[members]"></input>');
   });
+
+  // Delete collection(s) button click
+  $('#delete-collections-button').on('click', function () {
+    var tableRows = $('#documents table.collections-list-table tbody tr');
+    var checkbox = null;
+    var areRowsSelected = false;
+
+    tableRows.each(function(i, row) {
+      checkbox = $(row).find('td:first input[type=checkbox]');
+      if (checkbox[0].checked) {
+        areRowsSelected = true;
+      }
+    });
+
+    // Collections are selected
+    if (areRowsSelected) {
+      $('#collections-to-delete-modal').modal('show');
+    } else {
+      $('#collections-to-delete-deny-modal').modal('show');
+    }
+
+  });
 });

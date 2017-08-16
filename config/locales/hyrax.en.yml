@@ -35,7 +35,9 @@ en:
       batch:
         new: "Create batch of works"
       cancel: "Cancel"
+      close: "Close"
       collection:
+        create: "Create collection"
         new: "New Collection"
       delete: "Delete"
       edit: "Edit"
@@ -157,7 +159,7 @@ en:
           breadcrumb:       "View Set"
           confirm_delete:   "Are you sure you wish to delete this Administrative Set? This action cannot be undone."
           header:           "Administrative Set"
-          item_list_header: "Works in This Set"  
+          item_list_header: "Works in This Set"
       appearances:
         show:
           header:           "Appearance"
@@ -498,10 +500,12 @@ en:
       manage_proxies:           "Manage Proxies"
       my:
         action:
+          add_collection_to_another:  "Add collection to another collection"
+          create_collection:      "Create collection"
           collection_confirmation: "Deleting a collection from %{application_name} is permanent. Click OK to delete this collection from %{application_name}, or Cancel to cancel this operation"
-          delete_collection:       "Delete Collection"
+          delete_collection:       "Delete collection"
           delete_work:             "Delete Work"
-          edit_collection:         "Edit Collection"
+          edit_collection:         "Edit collection"
           edit_work:               "Edit Work"
           highlight:               "Highlight Work on Profile"
           select:                  "Select"
@@ -509,6 +513,7 @@ en:
           select_none:             "Select None"
           transfer:                "Transfer Ownership of Work"
           unhighlight:             "Unhighlight Work"
+          view_collection:         "View collection"
           work_confirmation:       "Deleting a work from %{application_name} is permanent. Click OK to delete this work from %{application_name}, or Cancel to cancel this operation"
         collection_list:
           description:    "Description:"
@@ -525,7 +530,10 @@ en:
           action:         "Actions"
           date_uploaded:  "Date Added"
           highlighted:    "Highlighted"
+          items:          "Items"
+          last_modified:  "Last modified"
           title:          "Title"
+          type:           "Type"
           visibility:     "Visibility"
         highlighted:  "My Highlights"
         shared:       "Works Shared with Me"

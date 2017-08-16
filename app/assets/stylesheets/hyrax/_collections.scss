@@ -85,3 +85,72 @@ form.per_page {
     padding-left: 0;
   }
 }
+
+.dashboard .collections-wrapper {
+  .panel {
+    .panel-title {
+      font-weight: 300;
+    }
+  }
+}
+
+.collections-wrapper {
+  padding-top: 20px;
+
+  .collections-list-table {
+    th, td {
+      text-align: center;
+      &:nth-child(2) {
+        text-align: left;
+      }
+    }
+  }
+
+  // Datatable overwrites
+  table.dataTable thead > tr > th {
+    padding-right: 15px;
+  }
+
+  table.dataTable thead .sorting:after,
+  table.dataTable thead .sorting_asc:after,
+  table.dataTable thead .sorting_desc:after {
+    right: 0;
+  }
+
+  .create-collection-button {
+    margin-bottom: 10px;
+  }
+
+  .delete-collections-button {
+    margin-bottom: 20px;
+  }
+
+  .inline-dropdowns {
+    select {
+      margin-left: 10px;
+    }
+  }
+
+  .thumbnail-title-wrapper {
+    display: flex;
+    align-items: center;
+
+    .thumbnail-wrapper {
+      width: 50px;
+      > img {
+        height: 30px;
+        width: auto;
+      }
+    }
+  }
+
+  .tabs-row {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    .nav-tabs {
+      margin-top: 0;
+    }
+  }
+}

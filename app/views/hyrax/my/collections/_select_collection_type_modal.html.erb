@@ -1,0 +1,37 @@
+<div class="modal worktypes fade" id="collection-to-create" tabindex="-1" role="dialog" aria-labelledby="select-collection-label">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="<%= t('hyrax.dashboard.heading_actions.close') %>"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title" id="select-collection-label"><%= t('hyrax.dashboard.heading_actions.select_type_of_work') %></h2>
+      </div>
+      <form class="new-work-select">
+        <div class="modal-body">
+          <!-- TODO: Put the following stub in a loop and wire up to application data -->
+          <div class="select-worktype">
+            <label>
+              <input type="radio" name="collection_input">
+              <div class="select-work-description">
+                <h3 class="work-type-title">User Collection</h3>
+                <p>Intended for individual users to organize items and, optionally, make publick or share with others.</p>
+              </div>
+            </label>
+          </div>
+          <div class="select-worktype">
+            <label>
+              <input type="radio" name="collection_input">
+              <div class="select-work-description">
+                <h3 class="work-type-title">Some Collecton Type</h3>
+                <p>We need to pull this data from someplace.</p>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('hyrax.dashboard.heading_actions.close') %></button>
+          <input type="submit" class="btn btn-primary" value="<%= t('hyrax.dashboard.my.action.create_collection') %>">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
