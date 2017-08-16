@@ -8,7 +8,7 @@ module Hyrax
     end
 
     def add_breadcrumb_for_controller
-      add_breadcrumb I18n.t('hyrax.dashboard.my.collections'), hyrax.my_collections_path
+      add_breadcrumb I18n.t('hyrax.dashboard.my.collections.your_collections'), hyrax.my_collections_path
     end
 
     def add_breadcrumb_for_action

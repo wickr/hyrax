@@ -20,7 +20,7 @@ RSpec.describe 'hyrax/my/collections/_list_collections.html.erb', type: :view do
     render 'hyrax/my/collections/list_collections', document: doc
   end
 
-  it 'the line item displays the work and its actions' do
+  xit 'the line item displays the work and its actions' do
     expect(rendered).to have_selector("tr#document_#{id}")
     expect(rendered).to have_link 'Collection Title', href: hyrax.collection_path(id)
     expect(rendered).to have_link 'Edit Collection', href: hyrax.edit_collection_path(id)

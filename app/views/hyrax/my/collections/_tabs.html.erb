@@ -4,6 +4,6 @@
     <%= link_to t('hyrax.dashboard.all.collections'), hyrax.dashboard_collections_path %>
   </li>
   <li<%= ' class="active"'.html_safe if current_page?(hyrax.my_collections_path(locale: nil)) %>>
-    <%= link_to t('hyrax.dashboard.my.collections'), hyrax.my_collections_path %>
+    <%= link_to t('hyrax.dashboard.my.collections.your_collections'), hyrax.my_collections_path %>
   </li>
 </ul>

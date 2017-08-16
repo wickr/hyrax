@@ -10,25 +10,38 @@ Blacklight.onLoad(function () {
       form.append('<input type="hidden" value="add" name="collection[members]"></input>');
   });
 
-  // Delete collection(s) button click
+  // Delete collections button click
   $('#delete-collections-button').on('click', function () {
     var tableRows = $('#documents table.collections-list-table tbody tr');
     var checkbox = null;
-    var areRowsSelected = false;
+    var numRowsSelected = false;
+    var deleteWording = {
+      plural: 'Deleting these collections',
+      singular: 'Deleting this collection'
+    };
+    var $deleteWordingTarget = $('#collections-to-delete-modal .pluralized');
 
     tableRows.each(function(i, row) {
       checkbox = $(row).find('td:first input[type=checkbox]');
       if (checkbox[0].checked) {
-        areRowsSelected = true;
+        numRowsSelected++;
       }
     });
 
     // Collections are selected
-    if (areRowsSelected) {
+    if (numRowsSelected > 0) {
+      // Update singular / plural text in delete modal
+      if (numRowsSelected > 1) {
+        $deleteWordingTarget.text(deleteWording.plural);
+      } else {
+        $deleteWordingTarget.text(deleteWording.singular);
+      }
       $('#collections-to-delete-modal').modal('show');
     } else {
       $('#collections-to-delete-deny-modal').modal('show');
     }
 
   });
+
+
 });

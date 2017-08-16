@@ -19,17 +19,17 @@ RSpec.describe 'collection', type: :feature do
       expect(page).to have_content 'Select type of work'
       expect(page).to have_selector 'input[name="collection_input"]'
 
-      #TODO: complete rest of tests
-      #expect(page).to have_selector "input.collection_title.multi_value"
+      # TODO: complete rest of tests
+      # expect(page).to have_selector "input.collection_title.multi_value"
 
-      #fill_in('Title', with: title)
-      #fill_in('Abstract or Summary', with: description)
-      #fill_in('Related URL', with: 'http://example.com/')
+      # fill_in('Title', with: title)
+      # fill_in('Abstract or Summary', with: description)
+      # fill_in('Related URL', with: 'http://example.com/')
 
-      #click_button("Create Collection")
-      #expect(page).to have_content 'Works in this Collection'
-      #expect(page).to have_content title
-      #expect(page).to have_content description
+      # click_button("Create Collection")
+      # expect(page).to have_content 'Works in this Collection'
+      # expect(page).to have_content title
+      # expect(page).to have_content description
     end
   end
 

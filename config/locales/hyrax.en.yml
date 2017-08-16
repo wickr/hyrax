@@ -504,6 +504,7 @@ en:
           create_collection:      "Create collection"
           collection_confirmation: "Deleting a collection from %{application_name} is permanent. Click OK to delete this collection from %{application_name}, or Cancel to cancel this operation"
           delete_collection:       "Delete collection"
+          delete_collections:      "Delete collections"
           delete_work:             "Delete Work"
           edit_collection:         "Edit collection"
           edit_work:               "Edit Work"
@@ -520,7 +521,9 @@ en:
           edit_access:    "Edit Access:"
           groups:         "Groups:"
           users:          "Users:"
-        collections:  "Your Collections"
+        collections:
+          collections_listing:    "Collections listing"
+          your_collections:       "Your Collections"
         facet_label:
           collections: "Filter collections:"
           highlighted: "Filter highlights:"
