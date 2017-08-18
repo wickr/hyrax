@@ -1,4 +1,4 @@
-RSpec.describe Hyrax::Admin::CollectionTypesController, type: :controller do
+RSpec.describe Hyrax::Admin::CollectionTypesController, type: :controller, clean_repo: true do
   context "anonymous user" do
     describe "#index" do
       it "returns http redirect" do
@@ -99,7 +99,6 @@ RSpec.describe Hyrax::Admin::CollectionTypesController, type: :controller do
       {
         title: 'Collection type title',
         description: 'Description of collection type',
-        machine_id: 'collection_type_title',
         nestable: true,
         discoverable: true,
         sharable: true,
@@ -232,7 +231,6 @@ RSpec.describe Hyrax::Admin::CollectionTypesController, type: :controller do
       let(:new_attributes) do
         {
           title: 'Improved title',
-          machine_id: 'improved-title',
           nestable: false,
           discoverable: false,
           sharable: false,
@@ -257,7 +255,7 @@ RSpec.describe Hyrax::Admin::CollectionTypesController, type: :controller do
       end
 
       context "with invalid params" do
-        let(:existing_collection_type) { create(:collection_type, title: 'Existing', machine_id: 'existing') }
+        let(:existing_collection_type) { create(:collection_type, title: 'Existing') }
         let(:invalid_attributes) { { title: existing_collection_type.title } }
 
         it "returns a success response (i.e. to display the 'edit' template)" do

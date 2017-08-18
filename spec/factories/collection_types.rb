@@ -2,7 +2,6 @@ FactoryGirl.define do
   factory :collection_type, class: Hyrax::CollectionType do
     sequence(:title) { |n| "Title #{n}" }
     description 'Collection type with all options'
-    sequence(:machine_id) { |n| "title-#{n}" }
     nestable true
     discoverable true
     sharable true
@@ -13,7 +12,6 @@ FactoryGirl.define do
 
     factory :user_collection_type do
       title 'User Collection'
-      machine_id 'user_collection'
       description 'A user oriented collection type'
     end
   end
