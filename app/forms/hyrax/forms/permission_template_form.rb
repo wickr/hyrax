@@ -82,13 +82,13 @@ module Hyrax
           update_management
         end
 
-        # Grant workflow approve roles for any admin set managers
+        # Grant all workflow roles to admin set managers
         # and revoke the approving role for non-managers
         def update_workflow_approving_responsibilities
           return unless active_workflow
-          approving_role = Sipity::Role.find_by_name('approving')
-          return unless approving_role
-          active_workflow.update_responsibilities(role: approving_role, agents: manager_agents)
+          registered_roles = Sipity::Role.where(name: Hyrax::RoleRegistry.new.role_names)
+          return unless registered_roles
+          active_workflow.update_responsibilities(role: registered_roles, agents: manager_agents)
         end
 
         # @return [Array<Sipity::Agent>] a list of sipity agents corresponding to the manager role of the permission_template
@@ -135,8 +135,9 @@ module Hyrax
           new_active_workflow = activate_workflow_from(attributes)
           return unless new_active_workflow
           manager_agents.each do |agent|
-            active_workflow.workflow_roles.each do |role|
-              Sipity::WorkflowResponsibility.find_or_create_by!(workflow_role: role, agent: agent)
+            active_workflow.workflow_roles.each do |workflow_role|
+              new_workflow_role = Sipity::WorkflowRole.find_or_create_by!(workflow: new_active_workflow, role: workflow_role.role)
+              Sipity::WorkflowResponsibility.find_or_create_by!(workflow_role: new_workflow_role, agent: agent)
             end
           end
         end
