@@ -57,10 +57,11 @@ module Hyrax
         return_info
       end
 
-      def remove_manager!
+      def update_management
         admin_set.update_access_controls!
         # TODO: do something appropriate here to revoke workflow responsibilities from agent(s) in model instance
-        active_workflow.update_responsibilities(role: [], agents: nil)
+        # active_workflow.update_responsibilities(role: [], agents: nil)
+        update_workflow_approving_responsibilities
       end
 
       private
@@ -75,10 +76,18 @@ module Hyrax
         # @return [Void]
         def update_participants_options(attributes)
           update_permission_template(attributes)
-          update_workflow_responsibilities!(attributes)
+          # update_workflow_responsibilities!(attributes)
           # if managers were added or removed, recalculate update the access controls on the AdminSet
           return unless managers_updated?(attributes)
-          admin_set.update_access_controls!
+          # admin_set.update_access_controls!
+          update_management
+        end
+
+        def update_workflow_approving_responsibilities
+          return unless active_workflow
+          approving_role = Sipity::Role.find_by(name: Hyrax::RoleRegistry::APPROVING)
+          return unless approving_role
+          active_workflow.update_responsibilities(role: approving_role, agents: manager_agents)
         end
 
         # Grant all workflow roles to admin set managers
