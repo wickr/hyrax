@@ -57,12 +57,10 @@ module Hyrax
         return_info
       end
 
-      # If management roles have been granted or removed, then copy this access
-      # to the edit permissions of the AdminSet and to the WorkflowResponsibilities
-      # of the active workflow
-      def update_management
+      def remove_manager!
         admin_set.update_access_controls!
-        update_workflow_approving_responsibilities
+        # TODO: do something appropriate here to revoke workflow responsibilities from agent(s) in model instance
+        active_workflow.update_responsibilities(role: [], agents: nil)
       end
 
       private
@@ -77,18 +75,46 @@ module Hyrax
         # @return [Void]
         def update_participants_options(attributes)
           update_permission_template(attributes)
-          # if managers were added, recalculate update the access controls on the AdminSet
+          update_workflow_responsibilities!(attributes)
+          # if managers were added or removed, recalculate update the access controls on the AdminSet
           return unless managers_updated?(attributes)
-          update_management
+          admin_set.update_access_controls!
         end
 
         # Grant all workflow roles to admin set managers
         # and revoke the approving role for non-managers
-        def update_workflow_approving_responsibilities
+        def update_workflow_responsibilities!(attributes)
           return unless active_workflow
-          registered_roles = Sipity::Role.where(name: Hyrax::RoleRegistry.new.role_names)
-          return unless registered_roles
-          active_workflow.update_responsibilities(role: registered_roles, agents: manager_agents)
+          roles = roles_for_agent(attributes)
+          return unless roles
+          active_workflow.update_responsibilities(role: roles, agents: agents_from(attributes))
+        end
+
+        def roles_for_agent(attributes)
+          roles = []
+          grants_as_collection(attributes).each do |grant|
+            case grant[:access]
+            when Hyrax::PermissionTemplateAccess::DEPOSIT
+              roles << Sipity::Role.find_by(name: Hyrax::RoleRegistry::DEPOSITING)
+            # TODO: Figure out what to do here
+            # when Hyrax::PermissionTemplateAccess::VIEW
+            when Hyrax::PermissionTemplateAccess::MANAGE
+              roles += Sipity::Role.where(name: Hyrax::RoleRegistry.new.role_names)
+            end
+          end
+          roles.uniq
+        end
+
+        # @return [Array<Sipity::Agent>] a list sipity agents extracted from attrs
+        def agents_from(attributes)
+          grants_as_collection(attributes).map do |grant|
+            agent = if grant[:agent_type] == 'user'
+                      ::User.find_by_user_key(grant[:agent_id])
+                    else
+                      Hyrax::Group.new(grant[:agent_id])
+                    end
+            PowerConverter.convert_to_sipity_agent(agent)
+          end
         end
 
         # @return [Array<Sipity::Agent>] a list of sipity agents corresponding to the manager role of the permission_template
@@ -107,7 +133,7 @@ module Hyrax
 
         # @return [Array<PermissionTemplateAccess>] a list of grants corresponding to the manager role of the permission_template
         def manager_grants
-          model.access_grants.where(access: 'manage'.freeze)
+          model.access_grants.where(access: Hyrax::PermissionTemplateAccess::MANAGE)
         end
 
         # @return [String, Nil] error_code if validation fails, nil otherwise
@@ -149,7 +175,7 @@ module Hyrax
         end
 
         def managers_updated?(attributes)
-          grants_as_collection(attributes).any? { |x| x[:access] == 'manage' }
+          grants_as_collection(attributes).any? { |x| x[:access] == Hyrax::PermissionTemplateAccess::MANAGE }
         end
 
         # This allows the attributes
