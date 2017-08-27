@@ -16,12 +16,11 @@ class CollectionBrandingInfo < ApplicationRecord
     self.local_path = find_local_filename(collection_id, role, filename)
   end
 
-  def save(file_location)
+  def save(file_location, copy_file = true)
     local_dir = find_local_dir_name(collection_id, role)
     FileUtils.mkdir_p local_dir
-
-    FileUtils.cp file_location, local_path unless file_location == local_path
-    FileUtils.remove_file(file_location) if File.exist?(file_location)
+    FileUtils.cp file_location, local_path unless file_location == local_path || !copy_file
+    FileUtils.remove_file(file_location) if File.exist?(file_location) && copy_file
     super()
   end
 
