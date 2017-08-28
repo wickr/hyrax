@@ -94,6 +94,15 @@ module Hyrax
       end
     end
 
+    # Return the collection types that a user is authorized to deposit to.
+    # TODO: stub method
+    # See https://github.com/samvera/hyrax/issues/1345
+    # @return [array] [[Active Record Element]]
+    def self.collection_types_for(user = current_user)
+      return Hyrax::CollectionType.all if user.present? # condition test added to allow paramter to be present
+      []
+    end
+
     private
 
       def assign_machine_id

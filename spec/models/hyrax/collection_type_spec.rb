@@ -194,4 +194,13 @@ RSpec.describe Hyrax::CollectionType, clean_repo: true, type: :model do
       end
     end
   end
+
+  describe "collection types_for" do
+    let(:user_collection_type) { create(:user_collection_type) }
+    let(:user) { create(:user) }
+
+    it 'returns types of collections user is authorized to create' do
+      expect(Hyrax::CollectionType.collection_types_for(user)).to eq(Hyrax::CollectionType.all)
+    end
+  end
 end
